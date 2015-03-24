@@ -20,6 +20,8 @@ rzslider span {
   position: absolute;
   display: inline-block;
   white-space: nowrap;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
 }
 
 rzslider span.base {
@@ -38,11 +40,11 @@ rzslider span.bar {
 rzslider span.bar.selection {
   z-index: 1;
   width: 0;
-  background: #67b700;
+  background: #ae1e48;
 }
 
 rzslider span.pointer {
-  top: -15px;
+  top: -11px;
   z-index: 2;
   width: 32px;
   height: 32px;
@@ -51,6 +53,10 @@ rzslider span.pointer {
   -webkit-border-radius: 16px;
      -moz-border-radius: 16px;
           border-radius: 16px;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 rzslider span.pointer:after {
@@ -67,17 +73,17 @@ rzslider span.pointer:after {
 }
 
 rzslider span.pointer:hover:after {
-  background-color: #67b700;
+  background-color: #ae1e48;
 }
 
 rzslider span.pointer.active:after {
-  background-color: #67b700;
+  background-color: #ae1e48;
 }
 
 rzslider span.bubble {
   top: -32px;
   padding: 1px 3px 1px 3px;
-  color: #67b700;
+  color: #ae1e48;
   cursor: default;
 }
 
@@ -86,5 +92,6 @@ rzslider span.bubble.selection {
 }
 
 rzslider span.bubble.limit {
-  color: #67b700;
+  display: none;
+  color: #ae1e48;
 }

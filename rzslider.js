@@ -160,6 +160,8 @@ function throttle(func, wait, options) {
      */
     this.initRun = false;
 
+    this.isSliderVisible = false;
+
     /**
      * Custom translate function
      *
@@ -255,6 +257,20 @@ function throttle(func, wait, options) {
 
       // Watchers
 
+      // watch for css visibility changes and calculate view dimensions if needed
+      this.scope.$watch(function ()
+      {
+        return self.isVisible(self.sliderElem[0]);
+      },
+      function (isVisible)
+      {
+        if (isVisible && isVisible !== self.isSliderVisible) {
+          self.isSliderVisible = true;
+
+          self.calcViewDimensions();
+        }
+      });
+
       this.scope.$watch('rzSliderModel', function(newValue, oldValue)
       {
         if(newValue === oldValue) return;
@@ -278,6 +294,16 @@ function throttle(func, wait, options) {
         if(newValue === oldValue) return;
         self.resetSlider();
       });
+    },
+
+    /**
+     * Check if DOM element is visible
+     *
+     * @param {jqLite} elem
+     * @returns {boolean}
+     */
+    isVisible: function (elem) {
+      return elem.offsetWidth > 0 && elem.offsetHeight > 0;
     },
 
     /**
@@ -536,6 +562,10 @@ function throttle(func, wait, options) {
      */
     updateHighHandle: function(newOffset)
     {
+      if (!this.maxLab.rzsw) {
+        this.maxLab.rzsw = 0;
+      }
+
       this.setLeft(this.maxH, newOffset);
       this.translateFn(this.scope.rzSliderHigh, this.maxLab);
       this.setLeft(this.maxLab, newOffset - this.maxLab.rzsw / 2 + this.handleHalfWidth);

@@ -13,9 +13,10 @@
   border-radius: @radius;
 }
 
-@handleActiveColor: #67b700;
-@handleHoverColor: #67b700;
-@labelTextColor: #67b700;
+@handleActiveColor: #ae1e48;
+@handleSliderSelectionColor: #ae1e48;
+@handleHoverColor: #ae1e48;
+@labelTextColor: #ae1e48;
 @handleBgColor: #fff;
 @handleInnerColor: #71818e;
 @limitLabelTextColor: @labelTextColor;
@@ -33,6 +34,9 @@ rzslider span {
   white-space: nowrap;
   position: absolute;
   display: inline-block;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 rzslider span.base {
@@ -51,16 +55,20 @@ rzslider span.bar {
 rzslider span.bar.selection {
   width: 0%;
   z-index: 1;
-  background: #67b700;
+  background: @handleSliderSelectionColor;
 }
 
 rzslider span.pointer {
   cursor: pointer;
   width: 32px;
   height: 32px;
-  top: -15px;
+  top: -11px;
   background-color: @handleBgColor;
   z-index: 2;
+  box-shadow: 0 1px 3px rgba(0,0,0,.4);
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.4);
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
   .rounded(16px);
 }
 
@@ -96,4 +104,5 @@ rzslider span.bubble.selection {
 
 rzslider span.bubble.limit {
   color: @limitLabelTextColor;
+  display: none;
 }
